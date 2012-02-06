@@ -18,9 +18,18 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 
+	const char *wmii_address = getenv("WMII_ADDRESS");
+	if (!wmii_address) {
+		fprintf(stderr, "WMII_ADDRESS must be set.\n");
+		return 1;
+	}
+	fprintf(stderr, "using WMII_ADDRESS %s\n", wmii_address);
+
 	L = luaL_newstate();
 	luaL_openlibs(L);
 	luaopen_ixp(L);
+	lua_pushstring(L, wmii_address);
+	lua_setglobal(L, "WMII_ADDRESS");
 
 	if (luaL_dofile(L, argv[1])) {
 		fprintf(stderr, "error executing Lua script: %s\n", lua_tostring(L, -1));
