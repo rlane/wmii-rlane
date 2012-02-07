@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 #include <libgen.h>
 #include <lua.h>
 #include <lualib.h>
@@ -22,6 +24,10 @@ int api_spawn(lua_State *L) {
 	return 0;
 }
 
+void sigchld(int signum) {
+	while (waitpid(-1, NULL, WNOHANG) > 0);
+}
+
 void usage(const char *progname) {
 	printf("usage: %s\n", progname);
 }
@@ -31,6 +37,8 @@ int main(int argc, char **argv) {
 		usage(argv[0]);
 		return 1;
 	}
+
+	signal(SIGCHLD, sigchld);
 
 	home = getenv("HOME");
 	if (!home) {
