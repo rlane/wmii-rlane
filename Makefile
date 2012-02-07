@@ -3,9 +3,9 @@ LUAIXP = ext/luaixp
 CFLAGS = -O2 -ggdb -Wall
 LDLIBS = -llua -lixp
 
-all: main
+all: wmiirc
 
-main: main.c $(LUAIXP)/lixp_*.c
+wmiirc: wmiirc.c $(LUAIXP)/lixp_*.c
 
 clean:
-	rm -f main
+	rm -f wmiirc

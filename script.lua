@@ -36,7 +36,7 @@ local keybindings = {
 	["Mod1-Shift-c"] = function() fs:write("/client/sel/ctl", "kill") end,
 	["Mod1-f"] = function() fs:write("/client/sel/ctl", "Fullscreen toggle") end,
 
-	["Mod1-t"] = function() fs:write("/ctl", "spawn actions/tag-menu") end,
+	["Mod1-t"] = function() spawn("./tag-menu") end,
 
 	["Mod1-x"] = function() spawn("urxvt") end,
 }

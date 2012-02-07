@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <libgen.h>
 #include <lua.h>
 #include <lualib.h>
 #include <lauxlib.h>
@@ -20,12 +21,23 @@ int api_spawn(lua_State *L) {
 }
 
 void usage(const char *progname) {
-	printf("usage: %s script.lua\n", progname);
+	printf("usage: %s\n", progname);
 }
 
 int main(int argc, char **argv) {
-	if (argc != 2) {
+	if (argc != 1) {
 		usage(argv[0]);
+		return 1;
+	}
+
+	char bin[BUFSIZ];
+	if (readlink("/proc/self/exe", bin, sizeof(bin)) < 0) {
+		perror("readlink");
+		return 1;
+	}
+
+	if (chdir(dirname(bin))) {
+		perror("chdir");
 		return 1;
 	}
 
@@ -45,7 +57,7 @@ int main(int argc, char **argv) {
 	lua_pushcfunction(L, api_spawn);
 	lua_setglobal(L, "spawn");
 
-	if (luaL_dofile(L, argv[1])) {
+	if (luaL_dofile(L, "script.lua")) {
 		fprintf(stderr, "error executing Lua script: %s\n", lua_tostring(L, -1));
 		return 1;
 	}
