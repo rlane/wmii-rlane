@@ -1,0 +1,3 @@
+#!/bin/sh
+tag=$(wmiir ls /tag | sed 's,/,,; /^sel$/d' | wimenu)
+wmiir xwrite /ctl view $tag
