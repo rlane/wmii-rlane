@@ -19,6 +19,21 @@ local keybindings = {
 	["Mod1-x"] = function() spawn("urxvt") end,
 }
 
+local events = {}
+
+function events.Key(key)
+	local fn = keybindings[key]
+	if fn then fn() else print("unexpected key " .. key) end
+end
+
+function events.CreateTag(tag)
+	fs:create("/lbar/tag:" .. tag, tag)
+end
+
+function events.DestroyTag(tag)
+	fs:remove("/lbar/tag:" .. tag)
+end
+
 local keys = {}
 for k, v in pairs(keybindings) do table.insert(keys, k) end
 
@@ -30,17 +45,9 @@ for event in event_iter do
 	print("event:", event)
 	local start, finish, e = event:find('^(%w+)')
 	local rest = event:sub(finish+2)
-
-	if e == 'Key' then
-		local key = rest
-		local fn = keybindings[key]
-		if fn then fn() else print("unexpected key " .. key) end
-	elseif e == 'CreateTag' then
-		local tag = rest
-		fs:create("/lbar/tag:" .. tag, tag)
-	elseif e == 'DestroyTag' then
-		local tag = rest
-		fs:remove("/lbar/tag:" .. tag)
+	local handler = events[e]
+	if handler then
+		handler(rest)
 	else
 		print("unexpected event " .. e)
 	end
