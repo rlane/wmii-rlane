@@ -1,0 +1,6 @@
+#!/bin/sh
+c=$(wmiir read /client/sel/ctl | sed 1q)
+# Prompt the user for new tags
+tags=$(wmiir ls /tag | sed 's,/,,; /^sel$/d' | wimenu)
+# Write them to the client
+wmiir xwrite /client/$c/tags $tags
