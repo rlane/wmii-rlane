@@ -2,6 +2,8 @@ print("hello from lua")
 local fs = ixp.new(WMII_ADDRESS)
 
 local last_tag = nil
+local focuscolors = '#cccccc #333333 #333333'
+local normcolors = '#cccccc #222222 #222222'
 
 
 fs:write("/ctl", [[
@@ -70,11 +72,20 @@ function events.Key(key)
 end
 
 function events.CreateTag(tag)
-	fs:create("/lbar/tag:" .. tag, tag)
+	fs:create("/lbar/tag:" .. tag, normcolors .. " " .. tag)
 end
 
 function events.DestroyTag(tag)
 	fs:remove("/lbar/tag:" .. tag)
+end
+
+function events.FocusTag(tag)
+	fs:write("/lbar/tag:" .. tag, focuscolors .. " " .. tag)
+end
+
+function events.UnfocusTag(tag)
+	fs:write("/lbar/tag:" .. tag, normcolors .. " " .. tag)
+	last_tag = tag
 end
 
 function events.CreateColumn(col)
@@ -84,13 +95,6 @@ function events.DestroyColumn(col)
 end
 
 function events.ColumnFocus(col)
-end
-
-function events.FocusTag(tag)
-end
-
-function events.UnfocusTag(tag)
-	last_tag = tag
 end
 
 function events.DestroyArea(area)
