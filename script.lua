@@ -19,6 +19,12 @@ incmode ignore
 normcolors #cccccc #222222 #222222
 ]]
 
+local keybindings = {
+	["Mod1-a"] = function() fs:write("/ctl", "view a") end,
+	["Mod1-b"] = function() fs:write("/ctl", "view b") end,
+	["Mod1-x"] = function() spawn("urxvt") end,
+}
+
 fs:write("/keys", keys)
 fs:write("/ctl", ctl)
 local event_iter = fs:iread("/event")
@@ -30,15 +36,8 @@ for event in event_iter do
 
 	if e == 'Key' then
 		local key = rest
-		if key == 'Mod1-a' then
-			fs:write("/ctl", "view a")
-		elseif key == 'Mod1-b' then
-			fs:write("/ctl", "view b")
-		elseif key == 'Mod1-x' then
-			spawn("urxvt")
-		else
-			print("unexpected key " .. key)
-		end
+		local fn = keybindings[key]
+		if fn then fn() else print("unexpected key " .. key) end
 	elseif e == 'CreateTag' then
 		local tag = rest
 		fs:create("/lbar/tag:" .. tag, tag)
