@@ -33,6 +33,9 @@ local keybindings = {
 	["Mod1-s"] = function() fs:write("/tag/sel/ctl", "colmode sel stack-max") end,
 	["Mod1-m"] = function() fs:write("/tag/sel/ctl", "colmode sel stack+max") end,
 
+	["Mod1-Shift-c"] = function() fs:write("/client/sel/ctl", "kill") end,
+	["Mod1-f"] = function() fs:write("/client/sel/ctl", "Fullscreen toggle") end,
+
 	["Mod1-x"] = function() spawn("urxvt") end,
 }
 
