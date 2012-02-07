@@ -97,6 +97,15 @@ end
 function events.LeftBarClick(args)
 end
 
+for stat in fs:idir("/lbar") do
+	fs:remove("/lbar/" .. stat.name)
+end
+
+for stat in fs:idir("/tag") do
+	if stat.name ~= "sel" then
+		fs:create("/lbar/tag:" .. stat.name, stat.name)
+	end
+end
 
 for event in fs:iread("/event") do
 	print("event:", event)
