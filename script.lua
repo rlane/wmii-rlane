@@ -29,6 +29,10 @@ local keybindings = {
 	["Mod1-Shift-h"] = function() fs:write("/tag/sel/ctl", "send sel left") end,
 	["Mod1-Shift-space"] = function() fs:write("/tag/sel/ctl", "send sel toggle") end,
 
+	["Mod1-d"] = function() fs:write("/tag/sel/ctl", "colmode sel default-max") end,
+	["Mod1-s"] = function() fs:write("/tag/sel/ctl", "colmode sel stack-max") end,
+	["Mod1-m"] = function() fs:write("/tag/sel/ctl", "colmode sel stack+max") end,
+
 	["Mod1-x"] = function() spawn("urxvt") end,
 }
 
