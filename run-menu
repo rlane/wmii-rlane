@@ -1,0 +1,4 @@
+#!/bin/bash
+set -e
+CMD=`./proglist $PATH | wimenu`
+exec setsid $CMD

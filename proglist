@@ -1,0 +1,4 @@
+#!/bin/sh
+IFS=: set -- $1
+find -L $@ -maxdepth 1 -perm /111 | sed "1d; s,.*/,," | sort | uniq
+unset IFS

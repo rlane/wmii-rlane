@@ -58,6 +58,7 @@ local keybindings = {
 
 	["Mod1-t"] = function() action("tag-menu") end,
 	["Mod1-Shift-t"] = function() action("retag-menu") end,
+	["Mod1-p"] = function() action("run-menu") end,
 
 	["Mod1-x"] = function() spawn("urxvtc") end,
 }
