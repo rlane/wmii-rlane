@@ -13,14 +13,14 @@ fs:write("/ctl", [[
 bar on top
 border 1
 colmode default
-focuscolors #cccccc #333333 #333333
 font xft:dejavu sans mono:pixelsize=12:antialias=true
 fontpad 0 0 0 0
 grabmod Mod1
 incmode ignore
-normcolors #cccccc #222222 #222222
 ]])
 
+fs:write("/ctl", "normcolors " .. normcolors)
+fs:write("/ctl", "focuscolors " .. focuscolors)
 
 local keybindings = {
 	["Mod1-e"] = function() fs:write("/ctl", "view mail") end,
