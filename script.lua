@@ -1,12 +1,6 @@
 print("hello from lua")
 local fs = ixp.new(WMII_ADDRESS)
 
-local keys = [[
-Mod1-a
-Mod1-b
-Mod1-x
-]]
-
 local ctl = [[
 bar on top
 border 1
@@ -25,7 +19,10 @@ local keybindings = {
 	["Mod1-x"] = function() spawn("urxvt") end,
 }
 
-fs:write("/keys", keys)
+local keys = {}
+for k, v in pairs(keybindings) do table.insert(keys, k) end
+
+fs:write("/keys", table.concat(keys, "\n"))
 fs:write("/ctl", ctl)
 local event_iter = fs:iread("/event")
 
