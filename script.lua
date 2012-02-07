@@ -34,6 +34,33 @@ function events.DestroyTag(tag)
 	fs:remove("/lbar/tag:" .. tag)
 end
 
+function events.CreateColumn()
+end
+
+function events.DestroyColumn()
+end
+
+function events.FocusTag()
+end
+
+function events.UnfocusTag()
+end
+
+function events.AreaFocus()
+end
+
+function events.CreateClient()
+end
+
+function events.ClientFocus()
+end
+
+function events.LeftBarMouseDown()
+end
+
+function events.LeftBarClick()
+end
+
 local keys = {}
 for k, v in pairs(keybindings) do table.insert(keys, k) end
 
