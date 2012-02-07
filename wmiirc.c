@@ -9,11 +9,13 @@
 int luaopen_ixp (lua_State *L);
 
 lua_State *L;
+char *home;
 
 int api_spawn(lua_State *L) {
 	const char *str = lua_tostring(L, -1);
 	if (fork() == 0) {
 		setsid();
+		chdir(home);
 		execl("/bin/sh", "/bin/sh", "-c", str, NULL);
 		abort();
 	}
@@ -27,6 +29,12 @@ void usage(const char *progname) {
 int main(int argc, char **argv) {
 	if (argc != 1) {
 		usage(argv[0]);
+		return 1;
+	}
+
+	home = getenv("HOME");
+	if (!home) {
+		fprintf(stderr, "HOME not set");
 		return 1;
 	}
 
