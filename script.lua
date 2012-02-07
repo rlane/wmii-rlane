@@ -59,7 +59,7 @@ local keybindings = {
 	["Mod1-t"] = function() spawn("./tag-menu") end,
 	["Mod1-Shift-t"] = function() spawn("./retag-menu") end,
 
-	["Mod1-x"] = function() spawn("urxvt") end,
+	["Mod1-x"] = function() spawn("urxvtc") end,
 }
 
 local keys = {}
