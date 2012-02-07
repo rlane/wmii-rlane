@@ -23,7 +23,7 @@ normcolors #cccccc #222222 #222222
 
 
 local keybindings = {
-	["Mod1-e"] = function() fs:write("/ctl", "view email") end,
+	["Mod1-e"] = function() fs:write("/ctl", "view mail") end,
 	["Mod1-w"] = function() fs:write("/ctl", "view www") end,
 	["Mod1-1"] = function() fs:write("/ctl", "view 1") end,
 	["Mod1-2"] = function() fs:write("/ctl", "view 2") end,
