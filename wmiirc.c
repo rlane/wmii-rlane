@@ -19,7 +19,18 @@ int api_spawn(lua_State *L) {
 		setsid();
 		chdir(home);
 		execl("/bin/sh", "/bin/sh", "-c", str, NULL);
-		abort();
+		perror("execl");
+		exit(1);
+	}
+	return 0;
+}
+
+int api_action(lua_State *L) {
+	const char *str = lua_tostring(L, -1);
+	if (fork() == 0) {
+		execl(str, str, NULL);
+		perror("execl");
+		exit(1);
 	}
 	return 0;
 }
@@ -72,6 +83,9 @@ int main(int argc, char **argv) {
 
 	lua_pushcfunction(L, api_spawn);
 	lua_setglobal(L, "spawn");
+
+	lua_pushcfunction(L, api_action);
+	lua_setglobal(L, "action");
 
 	if (luaL_dofile(L, "script.lua")) {
 		fprintf(stderr, "error executing Lua script: %s\n", lua_tostring(L, -1));
