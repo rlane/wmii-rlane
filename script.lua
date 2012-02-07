@@ -4,8 +4,7 @@ local fs = ixp.new(WMII_ADDRESS)
 local keys = [[
 Mod1-a
 Mod1-b
-Mod1-c
-Mod1-d
+Mod1-x
 ]]
 
 local ctl = [[
@@ -35,6 +34,8 @@ for event in event_iter do
 			fs:write("/ctl", "view a")
 		elseif key == 'Mod1-b' then
 			fs:write("/ctl", "view b")
+		elseif key == 'Mod1-x' then
+			spawn("urxvt")
 		else
 			print("unexpected key " .. key)
 		end
