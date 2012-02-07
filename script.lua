@@ -1,6 +1,8 @@
 print("hello from lua")
 local fs = ixp.new(WMII_ADDRESS)
 
+local last_tag = nil
+
 
 fs:write("/ctl", [[
 bar on top
@@ -27,6 +29,8 @@ local keybindings = {
 	["Mod1-7"] = function() fs:write("/ctl", "view 7") end,
 	["Mod1-8"] = function() fs:write("/ctl", "view 8") end,
 	["Mod1-9"] = function() fs:write("/ctl", "view 9") end,
+
+	["Mod1-q"] = function() if last_tag then fs:write("/ctl", "view " .. last_tag) end end,
 
 	["Mod1-j"] = function() fs:write("/tag/sel/ctl", "select down") end,
 	["Mod1-k"] = function() fs:write("/tag/sel/ctl", "select up") end,
@@ -86,6 +90,7 @@ function events.FocusTag(tag)
 end
 
 function events.UnfocusTag(tag)
+	last_tag = tag
 end
 
 function events.DestroyArea(area)
