@@ -1,7 +1,8 @@
 print("hello from lua")
 local fs = ixp.new(WMII_ADDRESS)
 
-local ctl = [[
+
+fs:write("/ctl", [[
 bar on top
 border 1
 colmode default
@@ -11,7 +12,8 @@ fontpad 0 0 0 0
 grabmod Mod1
 incmode ignore
 normcolors #cccccc #222222 #222222
-]]
+]])
+
 
 local keybindings = {
 	["Mod1-a"] = function() fs:write("/ctl", "view a") end,
@@ -41,6 +43,11 @@ local keybindings = {
 
 	["Mod1-x"] = function() spawn("urxvt") end,
 }
+
+local keys = {}
+for k, v in pairs(keybindings) do table.insert(keys, k) end
+fs:write("/keys", table.concat(keys, "\n"))
+
 
 local events = {}
 
@@ -90,14 +97,8 @@ end
 function events.LeftBarClick(args)
 end
 
-local keys = {}
-for k, v in pairs(keybindings) do table.insert(keys, k) end
 
-fs:write("/keys", table.concat(keys, "\n"))
-fs:write("/ctl", ctl)
-local event_iter = fs:iread("/event")
-
-for event in event_iter do
+for event in fs:iread("/event") do
 	print("event:", event)
 	local start, finish, e = event:find('^(%w+)')
 	local rest = event:sub(finish+2)
