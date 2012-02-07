@@ -45,31 +45,37 @@ function events.DestroyTag(tag)
 	fs:remove("/lbar/tag:" .. tag)
 end
 
-function events.CreateColumn()
+function events.CreateColumn(col)
 end
 
-function events.DestroyColumn()
+function events.DestroyColumn(col)
 end
 
-function events.FocusTag()
+function events.ColumnFocus(col)
 end
 
-function events.UnfocusTag()
+function events.FocusTag(tag)
 end
 
-function events.AreaFocus()
+function events.UnfocusTag(tag)
 end
 
-function events.CreateClient()
+function events.DestroyArea(area)
 end
 
-function events.ClientFocus()
+function events.AreaFocus(area)
 end
 
-function events.LeftBarMouseDown()
+function events.CreateClient(client)
 end
 
-function events.LeftBarClick()
+function events.ClientFocus(client)
+end
+
+function events.LeftBarMouseDown(args)
+end
+
+function events.LeftBarClick(args)
 end
 
 local keys = {}
