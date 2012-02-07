@@ -16,6 +16,17 @@ normcolors #cccccc #222222 #222222
 local keybindings = {
 	["Mod1-a"] = function() fs:write("/ctl", "view a") end,
 	["Mod1-b"] = function() fs:write("/ctl", "view b") end,
+
+	["Mod1-j"] = function() fs:write("/tag/sel/ctl", "select down") end,
+	["Mod1-k"] = function() fs:write("/tag/sel/ctl", "select up") end,
+	["Mod1-l"] = function() fs:write("/tag/sel/ctl", "select right") end,
+	["Mod1-h"] = function() fs:write("/tag/sel/ctl", "select left") end,
+
+	["Mod1-Shift-j"] = function() fs:write("/tag/sel/ctl", "send sel down") end,
+	["Mod1-Shift-k"] = function() fs:write("/tag/sel/ctl", "send sel up") end,
+	["Mod1-Shift-l"] = function() fs:write("/tag/sel/ctl", "send sel right") end,
+	["Mod1-Shift-h"] = function() fs:write("/tag/sel/ctl", "send sel left") end,
+
 	["Mod1-x"] = function() spawn("urxvt") end,
 }
 
