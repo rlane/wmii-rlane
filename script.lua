@@ -6,6 +6,9 @@ local focuscolors = '#cccccc #333333 #333333'
 local normcolors = '#cccccc #222222 #222222'
 
 
+fs:write("/event", "Start wmiirc")
+
+
 fs:write("/ctl", [[
 bar on top
 border 1
@@ -113,6 +116,10 @@ function events.LeftBarMouseDown(args)
 end
 
 function events.LeftBarClick(args)
+end
+
+function events.Start(name)
+   error("another wmiirc took over, shutting down")
 end
 
 for stat in fs:idir("/lbar") do
