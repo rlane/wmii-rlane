@@ -110,6 +110,9 @@ end
 function events.CreateClient(client)
 end
 
+function events.DestroyClient(client)
+end
+
 function events.ClientFocus(client)
 end
 
