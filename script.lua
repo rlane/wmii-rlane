@@ -113,10 +113,10 @@ end
 function events.ClientFocus(client)
 end
 
-function events.LeftBarMouseDown(args)
+function events.LeftBarMouseDown(button, item)
 end
 
-function events.LeftBarClick(args)
+function events.LeftBarClick(button, item)
 end
 
 function events.Start(name)
@@ -135,11 +135,18 @@ end
 
 for event in fs:iread("/event") do
 	print("event:", event)
-	local start, finish, e = event:find('^(%w+)')
-	local rest = event:sub(finish+2)
+	local e = nil
+	local args = {}
+	for word in event:gmatch('[^ ]+') do
+		if e then
+			table.insert(args, word)
+		else
+			e = word
+		end
+	end
 	local handler = events[e]
 	if handler then
-		handler(rest)
+		handler(unpack(args))
 	else
 		print("unexpected event " .. e)
 	end
