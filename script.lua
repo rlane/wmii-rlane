@@ -2,8 +2,8 @@ print("hello from lua")
 local fs = ixp.new(WMII_ADDRESS)
 
 local last_tag = nil
-local focuscolors = '#cccccc #333333 #333333'
-local normcolors = '#cccccc #222222 #222222'
+local focuscolors = "#dcdccc #5b605e #4f4f4f"
+local normcolors = "#dcdccc #3f3f3f #434443"
 
 
 fs:write("/event", "Start wmiirc")
