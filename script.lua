@@ -126,8 +126,16 @@ function events.Start(name)
    error("another wmiirc took over, shutting down")
 end
 
+function events.Timer()
+	fs:write("/rbar/time", os.date("%H:%M"))
+end
+
 for stat in fs:idir("/lbar") do
 	fs:remove("/lbar/" .. stat.name)
+end
+
+for stat in fs:idir("/rbar") do
+	fs:remove("/rbar/" .. stat.name)
 end
 
 for stat in fs:idir("/tag") do
@@ -135,6 +143,8 @@ for stat in fs:idir("/tag") do
 		fs:create("/lbar/" .. stat.name, stat.name)
 	end
 end
+
+fs:create("/rbar/time", os.date("%H:%M"))
 
 for event in fs:iread("/event") do
 	print("event:", event)
