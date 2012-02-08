@@ -76,19 +76,19 @@ function events.Key(key)
 end
 
 function events.CreateTag(tag)
-	fs:create("/lbar/tag:" .. tag, normcolors .. " " .. tag)
+	fs:create("/lbar/" .. tag, normcolors .. " " .. tag)
 end
 
 function events.DestroyTag(tag)
-	fs:remove("/lbar/tag:" .. tag)
+	fs:remove("/lbar/" .. tag)
 end
 
 function events.FocusTag(tag)
-	fs:write("/lbar/tag:" .. tag, focuscolors .. " " .. tag)
+	fs:write("/lbar/" .. tag, focuscolors .. " " .. tag)
 end
 
 function events.UnfocusTag(tag)
-	fs:write("/lbar/tag:" .. tag, normcolors .. " " .. tag)
+	fs:write("/lbar/" .. tag, normcolors .. " " .. tag)
 	last_tag = tag
 end
 
@@ -117,6 +117,9 @@ function events.LeftBarMouseDown(button, item)
 end
 
 function events.LeftBarClick(button, item)
+	if button == "1" then
+		fs:write("/ctl", "view " .. item)
+	end
 end
 
 function events.Start(name)
@@ -129,7 +132,7 @@ end
 
 for stat in fs:idir("/tag") do
 	if stat.name ~= "sel" then
-		fs:create("/lbar/tag:" .. stat.name, stat.name)
+		fs:create("/lbar/" .. stat.name, stat.name)
 	end
 end
 
