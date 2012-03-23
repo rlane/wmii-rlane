@@ -77,8 +77,8 @@ int main(int argc, char **argv) {
 
 	const char *wmii_address = getenv("WMII_ADDRESS");
 	if (!wmii_address) {
-		fprintf(stderr, "WMII_ADDRESS must be set.\n");
-		return 1;
+                wmii_address = "unix!/s/wmii";
+		fprintf(stderr, "WMII_ADDRESS not set, using %s\n", wmii_address);
 	}
 	fprintf(stderr, "using WMII_ADDRESS %s\n", wmii_address);
 
