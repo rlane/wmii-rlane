@@ -1,7 +1,8 @@
 LUAIXP = ext/luaixp
+PKGS=lua5.1
 
-CFLAGS = -O2 -ggdb -Wall
-LDLIBS = -llua -lixp
+CFLAGS = -O2 -ggdb -Wall `pkg-config --cflags $(PKGS)`
+LDLIBS = `pkg-config --libs $(PKGS)` -lixp
 
 all: wmiirc
 
