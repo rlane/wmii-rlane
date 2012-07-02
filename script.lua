@@ -4,6 +4,7 @@ local fs = ixp.new(WMII_ADDRESS)
 local last_tag = nil
 local focuscolors = "#dcdccc #5b605e #4f4f4f"
 local normcolors = "#dcdccc #3f3f3f #434443"
+local mod = "Mod4"
 
 
 fs:write("/event", "Start wmiirc")
@@ -23,44 +24,45 @@ fs:write("/ctl", "normcolors " .. normcolors)
 fs:write("/ctl", "focuscolors " .. focuscolors)
 
 local keybindings = {
-	["Mod1-e"] = function() fs:write("/ctl", "view mail") end,
-	["Mod1-w"] = function() fs:write("/ctl", "view www") end,
-	["Mod1-1"] = function() fs:write("/ctl", "view 1") end,
-	["Mod1-2"] = function() fs:write("/ctl", "view 2") end,
-	["Mod1-3"] = function() fs:write("/ctl", "view 3") end,
-	["Mod1-4"] = function() fs:write("/ctl", "view 4") end,
-	["Mod1-5"] = function() fs:write("/ctl", "view 5") end,
-	["Mod1-6"] = function() fs:write("/ctl", "view 6") end,
-	["Mod1-7"] = function() fs:write("/ctl", "view 7") end,
-	["Mod1-8"] = function() fs:write("/ctl", "view 8") end,
-	["Mod1-9"] = function() fs:write("/ctl", "view 9") end,
+	[mod.."-e"] = function() fs:write("/ctl", "view mail") end,
+	[mod.."-w"] = function() fs:write("/ctl", "view www") end,
+	[mod.."-n"] = function() fs:write("/ctl", "view notes") end,
+	[mod.."-1"] = function() fs:write("/ctl", "view 1") end,
+	[mod.."-2"] = function() fs:write("/ctl", "view 2") end,
+	[mod.."-3"] = function() fs:write("/ctl", "view 3") end,
+	[mod.."-4"] = function() fs:write("/ctl", "view 4") end,
+	[mod.."-5"] = function() fs:write("/ctl", "view 5") end,
+	[mod.."-6"] = function() fs:write("/ctl", "view 6") end,
+	[mod.."-7"] = function() fs:write("/ctl", "view 7") end,
+	[mod.."-8"] = function() fs:write("/ctl", "view 8") end,
+	[mod.."-9"] = function() fs:write("/ctl", "view 9") end,
 
-	["Mod1-q"] = function() if last_tag then fs:write("/ctl", "view " .. last_tag) end end,
+	[mod.."-q"] = function() if last_tag then fs:write("/ctl", "view " .. last_tag) end end,
 
-	["Mod1-j"] = function() fs:write("/tag/sel/ctl", "select down") end,
-	["Mod1-k"] = function() fs:write("/tag/sel/ctl", "select up") end,
-	["Mod1-l"] = function() fs:write("/tag/sel/ctl", "select right") end,
-	["Mod1-h"] = function() fs:write("/tag/sel/ctl", "select left") end,
-	["Mod1-space"] = function() fs:write("/tag/sel/ctl", "select toggle") end,
+	[mod.."-j"] = function() fs:write("/tag/sel/ctl", "select down") end,
+	[mod.."-k"] = function() fs:write("/tag/sel/ctl", "select up") end,
+	[mod.."-l"] = function() fs:write("/tag/sel/ctl", "select right") end,
+	[mod.."-h"] = function() fs:write("/tag/sel/ctl", "select left") end,
+	[mod.."-space"] = function() fs:write("/tag/sel/ctl", "select toggle") end,
 
-	["Mod1-Shift-j"] = function() fs:write("/tag/sel/ctl", "send sel down") end,
-	["Mod1-Shift-k"] = function() fs:write("/tag/sel/ctl", "send sel up") end,
-	["Mod1-Shift-l"] = function() fs:write("/tag/sel/ctl", "send sel right") end,
-	["Mod1-Shift-h"] = function() fs:write("/tag/sel/ctl", "send sel left") end,
-	["Mod1-Shift-space"] = function() fs:write("/tag/sel/ctl", "send sel toggle") end,
+	[mod.."-Shift-j"] = function() fs:write("/tag/sel/ctl", "send sel down") end,
+	[mod.."-Shift-k"] = function() fs:write("/tag/sel/ctl", "send sel up") end,
+	[mod.."-Shift-l"] = function() fs:write("/tag/sel/ctl", "send sel right") end,
+	[mod.."-Shift-h"] = function() fs:write("/tag/sel/ctl", "send sel left") end,
+	[mod.."-Shift-space"] = function() fs:write("/tag/sel/ctl", "send sel toggle") end,
 
-	["Mod1-d"] = function() fs:write("/tag/sel/ctl", "colmode sel default-max") end,
-	["Mod1-s"] = function() fs:write("/tag/sel/ctl", "colmode sel stack-max") end,
-	["Mod1-m"] = function() fs:write("/tag/sel/ctl", "colmode sel stack+max") end,
+	[mod.."-d"] = function() fs:write("/tag/sel/ctl", "colmode sel default-max") end,
+	[mod.."-s"] = function() fs:write("/tag/sel/ctl", "colmode sel stack-max") end,
+	[mod.."-m"] = function() fs:write("/tag/sel/ctl", "colmode sel stack+max") end,
 
-	["Mod1-Shift-c"] = function() fs:write("/client/sel/ctl", "kill") end,
-	["Mod1-f"] = function() fs:write("/client/sel/ctl", "Fullscreen toggle") end,
+	[mod.."-Shift-c"] = function() fs:write("/client/sel/ctl", "kill") end,
+	[mod.."-f"] = function() fs:write("/client/sel/ctl", "Fullscreen toggle") end,
 
-	["Mod1-t"] = function() action("tag-menu") end,
-	["Mod1-Shift-t"] = function() action("retag-menu") end,
-	["Mod1-p"] = function() action("run-menu") end,
+	[mod.."-t"] = function() action("tag-menu") end,
+	[mod.."-Shift-t"] = function() action("retag-menu") end,
+	[mod.."-p"] = function() action("run-menu") end,
 
-	["Mod1-x"] = function() spawn("urxvtc") end,
+	[mod.."-x"] = function() spawn("urxvtc") end,
 }
 
 local keys = {}
