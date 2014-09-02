@@ -78,7 +78,7 @@ function events.Key(key)
 end
 
 function events.CreateTag(tag)
-	fs:create("/lbar/" .. tag, normcolors .. " " .. tag)
+	fs:create("/lbar/" .. tag, "colors " .. normcolors .. "\nlabel " .. tag)
 end
 
 function events.DestroyTag(tag)
@@ -86,11 +86,11 @@ function events.DestroyTag(tag)
 end
 
 function events.FocusTag(tag)
-	fs:write("/lbar/" .. tag, focuscolors .. " " .. tag)
+	fs:write("/lbar/" .. tag, "colors " .. focuscolors .. "\nlabel" .. tag)
 end
 
 function events.UnfocusTag(tag)
-	fs:write("/lbar/" .. tag, normcolors .. " " .. tag)
+	fs:write("/lbar/" .. tag, "colors " .. normcolors .. "\nlabel" .. tag)
 	last_tag = tag
 end
 
@@ -132,7 +132,7 @@ function events.Start(name)
 end
 
 function events.Timer()
-	fs:write("/rbar/time", os.date("%H:%M"))
+	fs:write("/rbar/time", "label " .. os.date("%H:%M"))
 end
 
 for stat in fs:idir("/lbar") do
@@ -145,11 +145,11 @@ end
 
 for stat in fs:idir("/tag") do
 	if stat.name ~= "sel" then
-		fs:create("/lbar/" .. stat.name, stat.name)
+		fs:create("/lbar/" .. stat.name, "label " .. stat.name)
 	end
 end
 
-fs:create("/rbar/time", os.date("%H:%M"))
+fs:create("/rbar/time", "label " .. os.date("%H:%M"))
 
 for event in fs:iread("/event") do
 	print("event:", event)
